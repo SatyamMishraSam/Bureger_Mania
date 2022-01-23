@@ -5,7 +5,7 @@ const ejsLayout = require('express-ejs-layouts');
 const path = require('path');
 
 
-
+app.use(express.static('public')) //info about the static folders
 
 app.get("/",(req,res)=>{
     // res.send("hello World!")

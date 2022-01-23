@@ -1,0 +1,42 @@
+body {
+  font-family: "Montserrat", sans-serif;
+  color: black;
+}
+
+nav {
+  border: 3px solid black;
+  background-color: #cf7575;
+  color: white;
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+}
+
+nav li a {
+  transition: all 0.3s ease-in-out;
+  font-size: 20px;
+}
+nav li a:hover {
+  color: black;
+}
+
+button {
+  border: 3px solid black;
+}
+button:hover {
+  background-color: #cf7575;
+}
+
+.addCart {
+  color: black;
+  padding: 8px;
+}
+.addCart:hover {
+  background-color: #b18282;
+  color: white;
+  transition: all 0.3s ease-in-out;
+}
+
+.card {
+  border: 3px solid red;
+}

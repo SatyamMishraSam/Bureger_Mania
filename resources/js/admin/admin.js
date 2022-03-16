@@ -1,9 +1,8 @@
 import axios from 'axios'
 import moment from 'moment'
-import Noty from 'noty';
+import Noty from 'noty'
 
-
-export function initAdmin(socket) {
+function initAdmin(socket) {
     const orderTableBody = document.querySelector('#orderTableBody')
     let orders = []
     let markup
@@ -29,17 +28,19 @@ export function initAdmin(socket) {
         }).join('')
       }
 
-      function generateMarkup(orders) {
+    function generateMarkup(orders) {
         return orders.map(order => {
+            console.log(order)
             return `
-                <tr>
-                <td class="border px-4 py-2 text-green-900">
-                    <p>${ order._id }</p>
+                <tr >
+                <td class="border px-4 py-2 text-green-900 border-red-800">
+                    <p> Order Id: ${ order._id }</p>
+                    <br/>
                     <div>${ renderItems(order.items) }</div>
                 </td>
-                <td class="border px-4 py-2">${ order.customerId.name }</td>
-                <td class="border px-4 py-2">${ order.address }</td>
-                <td class="border px-4 py-2">
+                <td class="border px-4 py-2 border-red-800 ">${ order.customerId.name }</td>
+                <td class="border px-4 py-2 border-red-800">${ order.address }</td>
+                <td class="border px-4 py-2 border-red-800">
                     <div class="inline-block relative w-64">
                         <form action="/admin/order/status" method="POST">
                             <input type="hidden" name="orderId" value="${ order._id }">
@@ -70,10 +71,10 @@ export function initAdmin(socket) {
                         </div>
                     </div>
                 </td>
-                <td class="border px-4 py-2">
+                <td class="border px-4 py-2 border-red-800">
                     ${ moment(order.createdAt).format('hh:mm A') }
                 </td>
-                <td class="border px-4 py-2">
+                <td class="border px-4 py-2 border-red-800">
                     ${ order.paymentStatus ? 'paid' : 'Not paid' }
                 </td>
             </tr>
@@ -93,3 +94,6 @@ export function initAdmin(socket) {
         orderTableBody.innerHTML = generateMarkup(orders)
     })
 }
+
+// module.exports = initAdmin;
+export default initAdmin

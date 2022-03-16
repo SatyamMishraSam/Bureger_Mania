@@ -1,10 +1,18 @@
 import axios from 'axios';
 import Noty from 'noty';
-import {initAdmin} from './admin/admin';
+import initAdmin from './admin/admin';
 import moment from 'moment';
 
 let addToCart = document.querySelectorAll('.addCart');
 let cartCounter = document.querySelector('#cartCounter');
+
+const btn = document.querySelector("button.mobile-menu-button");
+const menu = document.querySelector(".mobile-menu");
+
+// add event listeners
+btn.addEventListener("click", () => {
+  menu.classList.toggle("hidden");
+});
 
 
 function updateCart(burger){
@@ -97,7 +105,7 @@ updateStatus(order);
 
 let socket = io();
 //admin 
-initAdmin(socket)
+// initAdmin(socket)
 
 //join the private room with unique room id
 //before creating room check that order exists or not
@@ -108,10 +116,10 @@ if(order){
 let adminAreaPath = window.location.pathname
 // console.log(adminAreaPath)
 if(adminAreaPath.includes('admin')){
+    initAdmin(socket)
+    
     socket.emit('join','adminRoom');
 }
-
-
 
 socket.on('orderUpdated',(data)=>{
     const updatedOrder = { ...order }

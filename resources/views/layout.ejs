@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>Burger Mania</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link
       href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;1,600&display=swap"
@@ -15,39 +15,138 @@
       href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
-    
+    <link
+      rel="stylesheet"
+      href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css"
+    />
+
     <link rel="stylesheet" href="/css/app.css" />
   </head>
   <body>
+    <!-- navbar goes here -->
+    <nav class="">
+      <div class="max-w-6xl mx-auto px-4">
+        <div class="flex justify-between">
+          <div class="flex space-x-4">
+            <!-- logo -->
+            <div>
+              <a
+                href="/"
+                class="flex items-center py-5 px-2 text-gray-700 hover:text-gray-900"
+              >
+                <img class="w-12 h-12" src="/img/log.png" alt="logo">
+                <span class="font-bold py-2 text-gray-900 px-3">Burger Mania</span>
+              </a>
+            </div>
 
-    <nav class=" container mx-auto flex items-center justify-between py-4">
-      <div class="logo">
-        <a href="/"><img class=w-12 rounded src="/img/log.png" alt=""></a>
-      </div>
-      <div >
-        <ul class="flex item-center">
-          <li class="ml-10"><a href="#menu">Menu</a></li>
-          <li class="ml-10"><a href="/customer/orders">Orders</a></li>
-          <% if(user){ %> 
-            <li class="ml-10 ">  <a ><%=user.name  %></a>  </li>
-          <li class="ml-10">
+            <!-- primary nav -->
+            <div class="hidden md:flex items-center space-x-1">
+              <a href="/" class="py-5 px-3 text-white -700 hover:text-gray-900"
+                >Menus</a
+              >
+              <a href="#" class="py-5 px-3 text-white-700 hover:text-gray-900"
+                >Offers</a
+              >
+              <a href="/customer/orders" class="py-5 px-3 text-white-700 hover:text-gray-900"
+                >Orders</a
+              >
+            </div>
+          </div>
+
+          <!-- secondary nav -->
+          <div class="hidden md:flex items-center space-x-1">
+            <% if(user){ %>
+            <a href="/customer/orders" class=" py-5 text-white-700 px-3"> <%=user.name %> </a>
+           
+              <form id="logout" action="/logout" method="POST">
+                <a
+                  class=" py-2 m-5 px-5 bg-red-400 hover:bg-yellow-300 text-white-900 hover:text-yellow-800 rounded transition duration-300"
+                  onclick="document.getElementById('logout').submit()"
+                  href="#"
+                  >Logout</a
+                >
+              </form>
             
-            <form id="logout" action="/logout" method="POST">
-              <a onclick="document.getElementById('logout').submit()" href="#" >Logout</a>
-            </form>
-            
-          </li>
-          <% }else{ %> 
-          <li class="ml-10"><a href="/register">Register</a></li>
-          <li class="ml-10"><a href="/login">login</a></li>
-          <% } %> 
-          <li class="ml-10"> <a href="/cart" class=" cart inline-block rounded-full px-4 flex items-center  ">
-            <span id="cartCounter" class="font-bold pr-2"> <%=session.cart?session.cart.totalQty:""  %>  </span>
-             <img src="/img/cart.png" alt="cart"> </a> 
-            </li>
-        </ul>
+            <% }else{ %>
+              <a href="/login" class=" py-5 px-5 text-white-700 "> login </a>
+              <a
+              class="custom py-2  px-5 bg-red-400 hover:bg-red-200 text-white-900 hover:text-yellow-800 rounded transition duration-300"
+              
+              href="/register"
+              >Signup</a
+            >
+            <% } %>
+            <a class="ml-10"> <a href="/cart" class=" cart inline-block rounded-full text-red-700 flex items-center  ">
+              <span id="cartCounter" class=" px-3 font-bold text-xl text-white-100 "> <%=session.cart?session.cart.totalQty:" "  %>  </span>
+               <img src="/img/cart.png" class="" alt="cart"> 
+            </a>
+          </div>
+
+
+          <!-- mobile button goes here -->
+          <div class="md:hidden flex items-center">
+            <button class=" mobile-menu-button">
+              <svg
+                class="w-6 h-6 bg-red-700"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M4 6h16M4 12h16M4 18h16"
+                />
+              </svg>
+            </button>
+          </div>
+        </div>
       </div>
+
+      <!-- mobile menu -->
+      <div class="mobile-menu hidden md:hidden">
+        <a
+          href="/"
+          class="block text-white-700 py-2 px-4 text-sm hover:bg-gray-200"
+          >Menus</a
+        >
+        <a
+          href="/customer/orders"
+          class="block text-white-700 py-2 px-4 text-sm hover:bg-gray-200"
+          >Orders</a
+        >
+
+        <% if(user){ %>
+        <a href="/customer/orders" class=" block text-white-700 py-2 px-4 text-sm hover:bg-gray-200"> <%=user.name %> </a>
+       
+          <form id="logout" action="/logout" method="POST">
+            <a
+              class="block text-white-700 py-2 px-4 text-sm hover:bg-gray-200"
+              onclick="document.getElementById('logout').submit()"
+              href="#"
+              >Logout</a
+            >
+          </form>
+        
+        <% }else{ %>
+        <a href="/login" class="block text-white-700 py-2 px-4 text-sm hover:bg-gray-200">Login</a>
+        <a
+          href="/register"
+          class="block text-white-700 py-2 px-4 text-sm hover:bg-gray-200"
+          >Signup</a
+        >
+        <% } %>
+        <a class=""> <a href="/cart" class=" cart inline-block py-2  rounded-full text-red-700 flex items-center  ">
+          <span id="cartCounter" class=" px-3 font-bold text-xl text-white-100 "> <%=session.cart?session.cart.totalQty:" "  %>  </span>
+           <img src="/img/cart.png" class="" alt="cart"> 
+        </a>
+      </div>
+
+
+
+
     </nav>
 
     <%- body%>

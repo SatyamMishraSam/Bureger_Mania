@@ -279,8 +279,11 @@ body {
   font-family: "Montserrat", sans-serif;
   color: black;
   margin: 0;
-  overflow-x: hidden;
   background-color: #eeeeee;
+}
+
+.footer {
+  background: #bb706c;
 }
 
 nav {
@@ -290,18 +293,27 @@ nav {
   position: sticky;
   top: 0;
   width: 100vw;
+  box-shadow: 10px 15px 5px 0px rgba(245, 205, 205, 0.75);
+}
+
+.custom {
+  background: #bb706c;
 }
 
 .logo {
   margin-left: 20px;
 }
 
-nav li a {
+nav div a {
   transition: all 0.3s ease-in-out;
   font-size: 20px;
 }
-nav li a:hover {
+nav div a:hover {
   color: black;
+}
+
+table {
+  border: 3px solid #bb706c;
 }
 
 .btn {
@@ -368,10 +380,6 @@ nav li a:hover {
 
 .amount {
   color: #bb706c;
-}
-
-table {
-  border: 3px solid #bb706c;
 }
 
 .loginform {
@@ -487,4 +495,26 @@ table {
 .status-box ul li small {
   float: right;
   margin-top: 8px;
+}
+
+@media (max-width: 1060px) {
+  .container {
+    max-width: 90%;
+  }
+
+  table {
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+}
+@media (max-width: 768px) {
+  .status-box ul li span:before {
+    font-size: 34px;
+  }
+}
+@media (min-width: 1024px) {
+  .top-navbar {
+    display: inline-flex !important;
+  }
 }

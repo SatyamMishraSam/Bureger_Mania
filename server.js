@@ -8,11 +8,11 @@ const PORT =process.env.PORT || 3000;
 const mongoose = require('mongoose');
 const session = require('express-session');
 const flash = require('express-flash');
-const Emitter = require('events');
-
 //Use of connect-mongo is to store the sessions in mongodb database not in any memory
 const MongodbStore = require('connect-mongo');
 const passport  = require('passport');
+const Emitter = require('events');
+
 
 //database connection mongodb
 const connection = mongoose.connect("mongodb://localhost/burger", {
@@ -24,6 +24,18 @@ const connection = mongoose.connect("mongodb://localhost/burger", {
   })
   .catch((err) => console.log(err));
 
+  //session configuration or setup
+    app.use(session({
+      secret:process.env.COOKIE_SECRET,
+      resave: false,
+      //store the sessions in the mongo db
+      store:MongodbStore.create({
+        mongoUrl:process.env.MONGO_CONNECTION_URL,
+      }), 
+      saveUninitialized: false,
+      cookie: { maxAge: 1000 * 60 * 60 * 24 *365 *10 } // 10 year
+    }))
+
   //event emitter
   const eventEmitter = new Emitter()
   app.set('eventEmitter',eventEmitter);
@@ -31,17 +43,6 @@ const connection = mongoose.connect("mongodb://localhost/burger", {
 
 
   
-//session configuration or setup
-  app.use(session({
-    secret:process.env.COOKIE_SECRET,
-    resave: false,
-    //store the sessions in the mongo db
-    store:MongodbStore.create({
-      mongoUrl:process.env.MONGO_CONNECTION_URL,
-    }), 
-    saveUninitialized: false,
-    cookie: { maxAge: 1000 * 60 * 60 * 24 } // 24 hour
-  }))
 
   //passport config
   // the below two lines are the passport strategies which is written in that file for all validation for login
@@ -51,7 +52,7 @@ const connection = mongoose.connect("mongodb://localhost/burger", {
   app.use(passport.initialize());
   app.use(passport.session());
 
-app.use(flash());
+  app.use(flash());
 
 app.use(express.static('public')) //info about the static folders
 app.use(express.urlencoded({extended:false})) //for registration to show the data 

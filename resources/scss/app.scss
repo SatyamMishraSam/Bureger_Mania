@@ -2,16 +2,16 @@
 @import '~noty/src/noty.scss';
 @import '~noty/src/themes/mint.scss';
 
-
-
 body{
     font-family: 'Montserrat',sans-serif;
     color:$dark; 
     margin: 0;
-    overflow-x: hidden;
+    // overflow-x: hidden;
     background-color: $secondary;
 }
-
+.footer{
+    background: $primary;
+}
 nav{
     // border: 3px solid black;
     
@@ -20,21 +20,27 @@ nav{
     position: sticky;
     top: 0;
     width: 100vw;
-    
-   
+    box-shadow: 10px 15px 5px 0px rgba(245, 205, 205, 0.75);
+     
 }
 
+.custom{
+    background: $primary;
+}
 .logo{
     margin-left: 20px;
 }
 
-nav li a{
+nav div a{
     transition: $smooth;
     font-size: 20px;
     // font-weight: bold;
     &:hover{
         color: $dark;
     }
+}
+table{
+    border:  3px solid $primary;
 }
 
 
@@ -110,14 +116,6 @@ nav li a{
 .amount{
     color: $primary;
 }
-table{
-    
-    border: 3px solid $primary;
-    
-}
-
-
-
 
 .loginform{
     box-shadow: 8px 8px 5px 0px $primary ;
@@ -234,3 +232,25 @@ table{
     // font-size: 14px;
     margin-top: 8px;
 }
+
+@media (max-width:1060px) {
+    .container{
+        max-width: 90%;
+    }
+    table{
+        display: block;
+        overflow-x: auto;
+        white-space: nowrap;
+    }
+}
+@media(max-width:768px){
+    .status-box ul li span:before{
+        font-size: 34px;
+    }
+}
+
+@media (min-width: 1024px) {
+    .top-navbar {
+      display: inline-flex !important;
+    }
+  }

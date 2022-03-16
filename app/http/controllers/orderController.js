@@ -18,7 +18,7 @@ function orderController () {
             })
             order.save().then(result=>{
                 Order.populate(result, {path:'customerId'},(err,placedOrder)=>{
-                    req.flash('success','order placed successfully')
+                    // req.flash('success','order placed successfully')
                     delete req.session.cart
                     
                     //emitter
